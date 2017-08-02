@@ -1,8 +1,9 @@
 <style scoped>    
     .tab{text-align:center;font-size:0;}
     .tab div{display:inline-block;}
-    .tab-item{color:#b9b9b9;font-size:0.24rem;cursor:pointer;line-height:2;width:25%;margin:0.2rem 0;}
-    .tab-item.router-link-active{color:#f3e424;border-bottom:#f3e424 solid 1px;}
+    .tab-item{cursor:pointer;width:25%;margin:0.2rem 0;}
+    .tab-item span{line-height:2;font-size:0.24rem;color:#727272;padding-bottom:0.1rem;}
+    .tab-item.router-link-active span{color:#bb9c47;border-bottom:#bb9c47 solid 1px;}
 </style>
 
 <template>

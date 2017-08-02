@@ -1,5 +1,5 @@
 <style scoped> 
-    .header{color:#fff;}   
+    .header{color:#bb9c47;font-size:0.22rem;text-align:center;line-height:0.5rem;}   
 </style>
 
 <template>

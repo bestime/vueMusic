@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import '@/common/css/pub.css'
 import '@/common/js/rem.js'
+import '@/common/js/bestime.js'
 
 Vue.config.productionTip = false
 

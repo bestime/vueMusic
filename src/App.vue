@@ -22,6 +22,6 @@
 
 <style>
 	#app {
-		width:6.4rem;background:#222;margin:0 auto;overflow:hidden;
+		width:6.4rem;margin:0 auto;overflow:hidden;
 	}
 </style>
