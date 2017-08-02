@@ -1,7 +1,7 @@
 <style scoped>    
     .tab{text-align:center;font-size:0;}
     .tab div{display:inline-block;}
-    .tab-item{color:#b9b9b9;font-size:0.24rem;cursor:pointer;line-height:2;width:25%;}
+    .tab-item{color:#b9b9b9;font-size:0.24rem;cursor:pointer;line-height:2;width:25%;margin:0.2rem 0;}
     .tab-item.router-link-active{color:#f3e424;border-bottom:#f3e424 solid 1px;}
 </style>
 

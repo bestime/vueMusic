@@ -1,6 +1,7 @@
 <template>
 	<div id="app">
-		<tab></tab>
+		<ms-mHeader></ms-mHeader>
+		<ms-tab></ms-tab>
 		<div class="routerView">
 			<router-view></router-view>
 		</div>
@@ -9,10 +10,12 @@
 
 <script>
 	import Tab from '@/components/tab/tab.vue'
+	import MHeader from '@/components/m-header/header.vue'
 	export default {
 		name: 'app',
 		components: {
-			'tab': Tab
+			'ms-tab': Tab,
+			'ms-mHeader': MHeader
 		}
 	}
 </script>
