@@ -112,6 +112,6 @@
         }else{
             return null;
         }
-    }; 
+    };
 }(window);
 

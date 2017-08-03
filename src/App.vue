@@ -3,7 +3,9 @@
 		<ms-mHeader></ms-mHeader>
 		<ms-tab></ms-tab>
 		<div class="routerView">
-			<router-view></router-view>
+			<keep-alive>
+				<router-view></router-view>
+			</keep-alive>
 		</div>
 	</div>
 </template>
