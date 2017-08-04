@@ -63,13 +63,7 @@
             setTimeout(() => {
                 this._getDiscList();
             },1000)            
-        },
-        mounted() {
-            this.setRecommendListHeight();
-            bestime.winFun(window,'resize',() => {
-                this.setRecommendListHeight();
-            })
-        },
+        },        
         methods: {
             _getRecomend: function () {
                 getRecommend().then((res) => {
@@ -91,12 +85,6 @@
                     this.$refs.scroll.refresh();                    
                     this.imageLoaded = true;
                 }                
-            },
-            setRecommendListHeight() {
-                var el = this.$refs.recommend;
-                var docWidth = document.documentElement.clientWidth || document.body.clientWidth;
-                var docHeight = document.documentElement.clientHeight || document.body.clientHeight;
-                el.style.height = (docHeight - el.offsetTop) + 'px';
             }
         },
         components: {
