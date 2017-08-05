@@ -7,6 +7,7 @@ import VueLazyLoad from 'vue-lazyload'
 import '@/common/css/pub.css'
 import '@/common/js/rem.js'
 import '@/common/js/bestime.js'
+import store from './store'
 
 Vue.config.productionTip = false
 Vue.use(VueLazyLoad, {
@@ -17,6 +18,7 @@ Vue.use(VueLazyLoad, {
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })
