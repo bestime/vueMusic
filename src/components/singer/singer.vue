@@ -4,7 +4,8 @@
 
 <template>
     <div class="singer">
-        <ms-listview :data="singers"></ms-listview>
+        <ms-listview :data="singers" @select="selectSinger"></ms-listview>
+        <router-view></router-view>
     </div>
 </template>
 
@@ -30,6 +31,11 @@
             'ms-listview': ListView
         },
         methods: {
+            selectSinger(singer){
+                this.$router.push({
+                    path: `/singer/${singer.id}`
+                });
+            },
             _getSingerList() {
                 getSingerList().then((res) => {
                     if(res.code === ERR_OK){

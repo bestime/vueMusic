@@ -59,10 +59,10 @@
         created: function () {
             setTimeout(() => {
                 this._getRecomend();
-            },4000)
+            },1000)
             setTimeout(() => {
                 this._getDiscList();
-            },1000)            
+            },30)            
         },        
         methods: {
             _getRecomend: function () {

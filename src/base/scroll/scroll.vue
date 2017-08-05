@@ -25,6 +25,10 @@
             data: {
                 type: Array,
                 default: null
+            },
+            listenScroll: {
+                type: Boolean,
+                default: false
             }
         },
         mounted() {
@@ -39,6 +43,12 @@
                     probeType: this.probeType,
                     click: this.click
                 })
+                console.log('初始化滚动组件');
+                if(this.listenScroll){
+                    this.scroll.on('scroll',(pos) => {
+                        this.$emit('scroll',pos)
+                    })
+                }
             },
             enable() {
                 this.scroll && this.scroll.enable();
@@ -52,6 +62,12 @@
                         this.scroll.refresh();
                     }
                 },30);
+            },
+            scrollTo() {
+                this.scroll && this.scroll.scrollTo.apply(this.scroll,arguments)
+            },
+            scrollToElement() {
+                this.scroll && this.scroll.scrollToElement.apply(this.scroll,arguments)
             }
         },
         watch: {
