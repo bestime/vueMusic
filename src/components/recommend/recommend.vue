@@ -7,7 +7,7 @@
     ul.list li p.desc{font-size:12px;color:#737373;padding-top:10px;}
     .recommend{height:100%;overflow:hidden;font-size:0;background:#dd4215;}
     .recommend-content{height:100%;background:#000;overflow:hidden;}
-    .loading-container{text-align:center;padding-top:30px;}
+    
 </style>
 
 <template>

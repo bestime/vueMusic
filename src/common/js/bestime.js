@@ -100,7 +100,7 @@
         window.onmousewheel = scrollFunc;
         document.onmousewheel = scrollFunc 
     };
-    ns.getStyle=function getStyle(elem,styleName) {
+    ns.getStyle=function(elem,styleName) {
         if(elem.style[styleName]){
             return elem.style[styleName];
         }else if(elem.currentStyle){
@@ -113,5 +113,16 @@
             return null;
         }
     };
+    ns.getImgRelSize = function (obj,callback) {
+        var natureSize = {};
+        var img = new Image();
+        img.src = obj.src;
+        img.onload = function () {
+            natureSize.width = img.width;
+            natureSize.height = img.height;     
+            if(callback) return callback(natureSize);
+        }        
+    }
+
 }(window);
 
