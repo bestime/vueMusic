@@ -1,5 +1,5 @@
 <style scoped>
-   .music-list{position:fixed;top:0;left:0;width:100%;height:100%;background:#1a1a1a;z-index:99;display:flex;flex-direction:column;}
+   .music-list{position:fixed;top:0;left:50%;margin-left:-3.2rem;width:6.4rem;height:100%;background:#1a1a1a;z-index:99;display:flex;flex-direction:column;}
    .top{position:relative;height:0;width:100%;padding-top:70%;}
    .top .backBtn{width:20px;height:20px;background:#dd4215;position:absolute;left:10px;top:10px;}
    .top h2{font-size:16px;text-align:center;line-height:40px;font-weight:normal;}
@@ -34,7 +34,7 @@
         </div>
         <ms-scroll @scroll="scroll" :myCss="myCss" :probeType="probeType" :listenScroll="listenScroll" class="musicContent" :data="songs">
             <ul class="musics">
-                <li v-for="song in songs">
+                <li v-for="(song,index) in songs" @click="selectItem(song,index)">
                     <h2>{{ song.name }}</h2>
                     <div class="desc">{{ getDesc(song) }}</div>
                 </li>
@@ -49,6 +49,7 @@
 <script>
     import Scroll from '@/base/scroll/scroll.vue'
     import Loading from '@/base/loading/loading'
+    import {mapActions} from 'vuex'
 
     const TOP_MIN_HEIGHT = 40;
     export default{
@@ -112,7 +113,16 @@
                 
                 var showH = this.topHeight - ts;
                 this.$refs.show.style.cssText = `height:${showH}px`;
-            }
+            },
+            selectItem(item,index) {
+                this.selectPlay({
+                    list: this.songs,
+                    index: index
+                })
+            },
+            ...mapActions([
+                'selectPlay'
+            ])
         }
     }
 </script>

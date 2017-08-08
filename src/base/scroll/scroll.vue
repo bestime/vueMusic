@@ -4,7 +4,7 @@
 
 <template>
     <div ref="wrapper">
-        <div class="scrollView" ref="scrollView">
+        <div class="scrollView" ref="scrollView" :style="myCss">
             <slot></slot>
         </div>
     </div>
@@ -38,13 +38,9 @@
         mounted() {
             setTimeout(()=>{
                 this._initScroll();
-                this._setCss();
-            },20)
+            },30)
         },
         methods: {
-            _setCss() {
-                this.$refs.scrollView.style.cssText = this.myCss;
-            },
             _initScroll() {
                 if(!this.$refs.wrapper) return;
                 this.scroll = new BScroll(this.$refs.wrapper,{
