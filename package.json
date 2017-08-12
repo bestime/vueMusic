@@ -13,6 +13,7 @@
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
+    "create-keyframe-animation": "^0.1.0",
     "axios": "^0.16.2",
     "better-scroll": "^0.4.0",
     "jsonp": "^0.2.1",
