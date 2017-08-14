@@ -122,7 +122,18 @@
             natureSize.height = img.height;     
             if(callback) return callback(natureSize);
         }        
+    };
+    ns.getRandomInt = function (min,max) {
+        return Math.floor(Math.random() * (max-min+1) + min);
+    };
+    ns.shuffle = function (arr) {
+        for(var i=0;i<arr.length;i++){
+            var j = ns.getRandomInt(0,i);
+            var t = arr[i];
+            arr[i] = arr[j];
+            arr[j] = t;
+        }
+        return arr;
     }
-
 }(window);
 
