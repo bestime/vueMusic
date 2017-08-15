@@ -108,4 +108,29 @@ btRouter.get('/getDiscList', function (req, res) {
     console.log(e);
   })
 })
+
+
+btRouter.get('/lyric', function (req, res) {
+  var url = 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg';
+  axios.get(url,{
+    headers: {
+      referer: 'https://c.y.qq.com/',
+      host: 'c.y.qq.com'
+    },
+    params: req.query
+  }).then((response) => {
+    var result = response.data;
+    if(typeof(result)==='string'){
+      var reg = /^\w+\(({[^()]+})\)$/;
+      var mathes = result.match(reg);
+      if(mathes){
+        result = JSON.parse(mathes[1])
+      }
+    }
+    res.json(result);
+  }).catch((e) => {
+    console.log(e);
+  })
+})
+
 app.use('/api', btRouter)

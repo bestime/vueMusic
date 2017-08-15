@@ -80,7 +80,7 @@
                     <div class="progressBox">
                         <ms-progressBar @percentChange="onProgressBarChange" :percent="percent"></ms-progressBar>
                     </div>
-                    <span class="time timer-r">{{ format(currentDuration) }}</span>
+                    <span class="time timer-r">{{ format(currentSong.duration) }}</span>
                 </div>
                 <div class="btns">
                     <div class="mode" :class="iconMode" @click="changeMode"><span></span></div>
@@ -136,7 +136,7 @@
                 return cls;
             },
             percent() {
-                return this.currentTime/this.currentDuration
+                return this.currentTime/this.currentSong.duration
             },
             playingClass() {
                 return this.playing ? 'playing' : 'playing pause';
@@ -157,8 +157,7 @@
         data() {
             return {
                 songReady: false,
-                currentTime: 0,
-                currentDuration: 0
+                currentTime: 0
             }
         },
         methods: {
@@ -199,7 +198,7 @@
                 this.setCurrentIndex(index);
             },
             onProgressBarChange(percent) {
-                this.$refs.audio.currentTime = this.currentDuration * percent;
+                this.$refs.audio.currentTime = this.currentSong.duration * percent;
                 if(!this.playing){
                     this.togglePlaying();
                 }
@@ -223,7 +222,6 @@
             },
             ready() {
                 this.songReady = true;
-                this.currentDuration = this.$refs.audio.duration;
             },
             error() {
                 this.songReady = true;
@@ -290,6 +288,7 @@
                 if(newSong.id===oldSong.id) return;
                 this.$nextTick(() => {
                     this.$refs.audio.play();
+                    this.currentSong._getLyric(this.currentSong.id);
                 });
                 
             },
