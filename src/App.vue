@@ -1,5 +1,5 @@
 <template>
-	<div id="app">
+	<div id="app" :class="{'miniPlayerShow':isMiniPlayerShow}">
 		<ms-mHeader></ms-mHeader>
 		<ms-tab></ms-tab>
 		<div class="routerView" ref="routerview">
@@ -22,11 +22,20 @@
 			'ms-mHeader': MHeader,
 			'ms-player': Player
 		},
+		data() {
+			return {
+				isMiniPlayerShow: false
+			}
+		},
+		created() {
+			this.isMiniPlayerShow = this.$store.state.fullScreen;
+			console.log(this.isMiniPlayerShow)
+		},
 		mounted() {
             this.setRecommendListHeight();
             bestime.winFun(window,'resize',() => {
                 this.setRecommendListHeight();
-            })
+            });			
         },
 		methods: {
 			setRecommendListHeight() {

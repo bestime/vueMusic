@@ -11,18 +11,16 @@ export default class Song {
         this.album = album
         this.duration = duration
         this.image = image
-        this.url = url
-        this._getLyric = function () {
+        this.url = url,
+        this.lyric = null,
+        this._getLyric = function (fn) {
             let result = null;
             getLyric(mid).then((res) => {                
                 if(res.retcode === ERR_OK){
                     result = Base64.decode(res.lyric);
-                    console.log(result)
-                    
+                    if(fn) return fn(result)
                 }
             })
-            
-           // return result;
         };
     }
 
