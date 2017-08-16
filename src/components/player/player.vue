@@ -118,6 +118,7 @@
     import progressBar from '@/base/progress-bar.vue'
     import progressCircle from '@/base/progress-circle.vue'
     import {playMode} from '@/common/js/config.js'
+    
     export default {
         components: {
             'ms-progressBar': progressBar,
@@ -275,6 +276,9 @@
                 const x = -(window.innerWidth/2-paddingLeft);
 
             },
+            toGetLyric() {
+                this.currentSong._getLyric(this.currentSong.id);
+            },
             ...mapMutations({
                 setFullScreen: 'SET_FULL_SCREEN',
                 setPlayingState: 'SET_PLAYING_STATE',
@@ -288,7 +292,8 @@
                 if(newSong.id===oldSong.id) return;
                 this.$nextTick(() => {
                     this.$refs.audio.play();
-                    this.currentSong._getLyric(this.currentSong.id);
+                    this.toGetLyric();
+                    
                 });
                 
             },
