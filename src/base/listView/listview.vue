@@ -65,6 +65,7 @@
 
 <script>
     import Scroll from '@/base/scroll/scroll.vue'
+    
     export default {
         created() {
             this.touch = {};
@@ -91,9 +92,6 @@
         components: {
             'ms-scroll': Scroll
         },
-        mounted() {
-            
-        },
         computed: {
             shortcutList() {
                 this.$nextTick(function() {
@@ -108,7 +106,7 @@
                     return null;
                 }
                 return this.data[this.currentIndex] ? this.data[this.currentIndex].title : null;
-            }
+            }            
         },
         methods: {
             selectItem(item){

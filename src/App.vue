@@ -4,10 +4,10 @@
 		<ms-tab></ms-tab>
 		<div class="routerView" ref="routerview">
 			<keep-alive>
-				<router-view></router-view>
+				<router-view ref="routers"></router-view>
 			</keep-alive>
 		</div>
-		<ms-player></ms-player>
+		<ms-player ref="player"></ms-player>
 	</div>
 </template>
 
@@ -15,6 +15,7 @@
 	import Tab from '@/components/tab/tab.vue'
 	import MHeader from '@/components/m-header/header.vue'
 	import Player from '@/components/player/player.vue'
+	import {mapMutations} from 'vuex'
 	export default {
 		name: 'app',
 		components: {
@@ -22,14 +23,15 @@
 			'ms-mHeader': MHeader,
 			'ms-player': Player
 		},
-		data() {
-			return {
-				isMiniPlayerShow: false
+		computed:{
+			isMiniPlayerShow() {
+				var playlist = this.$store.state.playlist;
+				if(playlist.length){
+					return true;
+				}else{
+					return false;
+				}
 			}
-		},
-		created() {
-			this.isMiniPlayerShow = this.$store.state.fullScreen;
-			console.log(this.isMiniPlayerShow)
 		},
 		mounted() {
             this.setRecommendListHeight();
@@ -37,13 +39,21 @@
                 this.setRecommendListHeight();
             });			
         },
+		watch: {
+			isMiniPlayerShow(){
+				this.setMiniPlayerShow(true);
+			}
+		},
 		methods: {
 			setRecommendListHeight() {
                 var el = this.$refs.routerview;
                 var docWidth = document.documentElement.clientWidth || document.body.clientWidth;
                 var docHeight = document.documentElement.clientHeight || document.body.clientHeight;
-                el.style.height = (docHeight - el.offsetTop) + 'px';
-            }
+                el.style.height = (docHeight - el.offsetTop) + 'px';				
+            },
+			...mapMutations({
+                setMiniPlayerShow: 'SET_MINIPLAYER_SHOW'
+            })
 		}
 	}
 </script>
@@ -54,3 +64,7 @@
 	}
 	.routerView{overflow:hidden;}
 </style>
+
+<div class="box">  <!-- 这个撑高,设置padding或者height-->
+	<div class="fixed"></div>  <!-- 定位 -->
+</div>

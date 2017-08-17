@@ -135,7 +135,7 @@
             </div>
         </transition> 
         <transition name="mini">
-            <div class="mini-player" v-show="!fullScreen" @click="open">
+            <div ref="miniPlayer" class="mini-player" v-show="!fullScreen" @click="open">
                 <div class="info">
                     <img :src="currentSong.image" :class="playingClass" />
                     <div class="content">

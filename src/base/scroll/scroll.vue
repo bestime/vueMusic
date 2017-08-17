@@ -12,6 +12,7 @@
 
 <script>
     import BScroll from 'better-scroll'
+    import {mapGetters} from 'vuex'
     export default {
         props: {
             probeType: {
@@ -40,6 +41,11 @@
                 this._initScroll();
             },30)
         },
+        computed: {
+            ...mapGetters([
+                'miniPlayerShow'
+            ])
+        },
         methods: {
             _initScroll() {
                 if(!this.$refs.wrapper) return;
@@ -47,7 +53,6 @@
                     probeType: this.probeType,
                     click: this.click
                 })
-                console.log('初始化滚动组件');
                 if(this.listenScroll){
                     this.scroll.on('scroll',(pos) => {
                         this.$emit('scroll',pos)
@@ -77,6 +82,12 @@
         watch: {
             data() {
                this.refresh();
+            },
+            miniPlayerShow() {
+                setTimeout(() => {
+                    console.log('迷你播放器状态改版，刷新scroll组件')
+                    this.scroll.refresh();
+                },30)
             }
         }
     }

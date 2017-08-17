@@ -21,6 +21,12 @@ const matutaions = {
     },
     [types.SET_CURRENT_INDEX](state,index){
         state.currentIndex = index
+    },
+    [types.SET_MINIPLAYER_SHOW](state,flag){
+        state.miniPlayerShow = flag
+    },
+    [types.SET_DISC](state,disc){
+        state.disc = disc;
     }
 }
 

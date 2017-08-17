@@ -3,8 +3,8 @@
 </style>
 
 <template>
-    <div class="singer">
-        <ms-listview :data="singers" @select="selectSinger"></ms-listview>
+    <div class="singer" ref="singer">
+        <ms-listview ref="listview" :data="singers" @select="selectSinger"></ms-listview>
         <router-view></router-view>
     </div>
 </template>
@@ -26,7 +26,7 @@
             }
         },
         created() {
-            this._getSingerList()
+            this._getSingerList();
         },
         components: {
             'ms-listview': ListView
