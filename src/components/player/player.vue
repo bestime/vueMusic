@@ -4,10 +4,10 @@
     .player .disableClass *{background:#666;}/** 歌曲无法播放，灰色按钮 **/
     .normal-player{position:fixed;background:#1a1a1a;overflow:hidden;height:100%;width:100%;top:0;left:0;z-index:110;display:flex;flex-direction:column;}
     .playbox{position:relative;z-index:5;height:70px;overflow:hidden;}
-    .circle{border:#333 solid 0.15rem;width:4.4rem;height:4.4rem;border-radius:50%;margin:1.6rem auto 0 auto;overflow:hidden;}
+    .circle{border:#333 solid 0.15rem;width:4.4rem;height:4.4rem;border-radius:50%;margin:0.5rem auto 0 auto;overflow:hidden;}
     .playbox h1,.playbox h2{color:#fff;font-weight:normal;font-size:14px;text-align:center;padding:0.2rem 0 0.1rem 0;}
     .playbox h2{padding:0;font-size:12px;}
-    .circle img{margin:0;padding:0;border:none;display:block;width:100%;}
+    .circle img{margin:0;padding:0;border:none;display:block;width:100%;border-radius:50%;}
     .circle img.playing,.mini-player .info img.playing{animation: rotate 20s linear infinite}
     .circle img.pause,.mini-player .info img.pause{animation-play-state: paused;}
     .icons{display:flex;width:100%;font-size:0;position:absolute;bottom:10px;}
@@ -59,7 +59,7 @@
     .middle .page01 .playingLyric{font-size:14px;color:#c2af93;text-align:center;padding-top:50px;}
     .middle .lyric{left:100%;}
     .lyric{font-size:0;}
-    .lyric p{font-size:14px;color:#5a5a5a;text-align:center;line-height:1.8;}
+    .lyric p{font-size:16px;color:#5a5a5a;text-align:center;line-height:3;}
     .lyric p.current{color:#bb9c47;}
     .btns .dots{height:14px;font-size:0;text-align:center;margin-top:5px;}
     .btns .dots span{display:inline-block;width:8px;height:8px;background:#fff;border-radius:10px;margin: 0 2px;}

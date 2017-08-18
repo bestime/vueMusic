@@ -1,4 +1,4 @@
-<style scoped>
+<style>
 .rank{padding:0 0.2rem;height:100%;}
 .rank ul{font-size:12px;}
 .rank ul li{background:#333;overflow:hidden;display:flex;margin:0.2rem 0;padding-right:0.2rem;}
@@ -10,21 +10,23 @@
 </style>
 
 <template>
-    <ms-scroll class="rank" :data="topList">
-        <ul>
-            <li v-for="item in topList" @click="selectItem(item)">
-                <a class="img"><img v-lazy="item.picUrl"></a>
-                <div class="content">
-                    <p v-for="(song,index) in item.songList">
-                        <span>{{ index + 1 }}</span>
-                        {{ song.songname }} - {{ song.singername }}
-                    </p>
-                </div>
-            </li>
-        </ul>
-        <ms-loading v-if="!topList.length"></ms-loading>
+    <div style="height:100%;">
+        <ms-scroll class="rank" :data="topList">
+            <ul>
+                <li v-for="item in topList" @click="selectItem(item)">
+                    <a class="img"><img v-lazy="item.picUrl"></a>
+                    <div class="content">
+                        <p v-for="(song,index) in item.songList">
+                            <span>{{ index + 1 }}</span>
+                            {{ song.songname }} - {{ song.singername }}
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <ms-loading v-if="!topList.length"></ms-loading>            
+        </ms-scroll>
         <router-view></router-view>
-    </ms-scroll>
+    </div>
 </template>
 
 <script>
