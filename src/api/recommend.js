@@ -41,7 +41,6 @@ export function getSongList(disstid) {
         json: 1,
         onlysong: 0,
         platform: 'yqq',
-        g_tk: 67232076,
         needNewCode: 0,
         hostUin: 0
     });

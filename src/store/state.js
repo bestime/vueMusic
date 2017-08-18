@@ -9,7 +9,8 @@ const state = {
     mode: playMode.sequence,
     currentIndex: -1,
     miniPlayerShow: false,
-    disc:{}
+    disc:{},
+    topList: {}
     
 };
 

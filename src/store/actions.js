@@ -11,3 +11,7 @@ export const selectPlay = function ({commit,state},{list,index}) {
 export const selectMiniPlayerShow = function ({commit,state},{flag}) {
     commit(types.SET_MINIPLAYER_SHOW,flag)
 }
+
+// export const setTopList = function ({commit,state},{item}){
+//     commit(types.SET_TOP_LIST,item)
+// }

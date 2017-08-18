@@ -1,6 +1,6 @@
 <style scoped>
-    .loading p.desc{font-size:12px;color:#777;padding:5px 0;}
-    .loading img{width:20px;display:inline-block;border:none;}
+    .loading p.desc{font-size:12px;color:#777;padding:5px 0;text-align:center;}
+    .loading img{width:20px;display:block;margin:1rem auto 0.2rem auto;border:none;}
 </style>
 
 <template>
