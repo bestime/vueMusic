@@ -4,6 +4,15 @@
 
 <template>
     <div>
-        <h1>search</h1>
+        <ms-search></ms-search>
     </div>
 </template>
+
+<script>
+    import SearchBox from '@/base/search-box'
+    export default {
+        components: {
+            'ms-search': SearchBox
+        }
+    }    
+</script>
