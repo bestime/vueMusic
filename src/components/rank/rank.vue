@@ -1,74 +1,123 @@
-<style>
-.rank{padding:0 0.2rem;height:100%;}
-.rank ul{font-size:12px;}
-.rank ul li{background:#333;overflow:hidden;display:flex;margin:0.2rem 0;padding-right:0.2rem;}
-.rank ul a.img{margin-right:0.2rem;display:block;float:left;width:1.5rem;height:1.5rem;font-size:0;overflow:hidden;}
-.rank ul a.img img{display:block;width:100%;height:100%;border:none;}
-.rank .content{overflow:hidden;display:flex;flex-direction:column;justify-content: center;flex:1;}
-.rank ul li .content p{line-height:2;color:#949494;display:block;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
-.rank ul li .content p span{color:#868686;}
-</style>
-
 <template>
-    <div style="height:100%;">
-        <ms-scroll class="rank" :data="topList">
-            <ul>
-                <li v-for="item in topList" @click="selectItem(item)">
-                    <a class="img"><img v-lazy="item.picUrl"></a>
-                    <div class="content">
-                        <p v-for="(song,index) in item.songList">
-                            <span>{{ index + 1 }}</span>
-                            {{ song.songname }} - {{ song.singername }}
-                        </p>
-                    </div>
-                </li>
-            </ul>
-            <ms-loading v-if="!topList.length"></ms-loading>            
-        </ms-scroll>
-        <router-view></router-view>
-    </div>
+  <div class="rank" ref="rank">
+    <scroll :data="topList" class="toplist" ref="toplist">
+      <ul>
+        <li @click="selectItem(item)" class="item" v-for="item in topList">
+          <div class="icon">
+            <img width="100" height="100" v-lazy="item.picUrl"/>
+          </div>
+          <ul class="songlist">
+            <li class="song" v-for="(song,index) in item.songList">
+              <span>{{index + 1}}</span>
+              <span>{{song.songname}}-{{song.singername}}</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="loading-container" v-show="!topList.length">
+        <loading></loading>
+      </div>
+    </scroll>
+    <router-view></router-view>
+  </div>
 </template>
 
-<script>
-    import {getTopList} from '@/api/rank.js'
-    import {ERR_OK} from '@/api/config'
-    import Scroll from '@/base/scroll/scroll.vue'
-    import Loading from '@/base/loading/loading'
-    import {mapMutations} from 'vuex'
+<script type="text/ecmascript-6">
+  import Scroll from 'base/scroll/scroll'
+  import Loading from 'base/loading/loading'
+  import {getTopList} from 'api/rank'
+  import {ERR_OK} from 'api/config'
+  import {playlistMixin} from 'common/js/mixin'
+  import {mapMutations} from 'vuex'
 
-    export default {
-        components: {
-            'ms-scroll': Scroll,
-            'ms-loading': Loading
-        },
-        data(){
-            return {
-                topList: []
-            }
-        },
-        created() {
-            setTimeout(() => {
-                this._getTopList();
-            },500)
-        },
-        methods: {
-            selectItem(item){
-                this.$router.push({
-                    path: `/rank/${item.id}`
-                })
-                //console.log(item)
-                this.setTopList(item)
-            },
-            _getTopList() {
-                getTopList().then((res) => {
-                    if(res.code === ERR_OK){
-                        this.topList = res.data.topList;
-                    }
-                })
-            },
-            ...mapMutations({
-                'setTopList': 'SET_TOP_LIST'
-            })
-        }
+  export default {
+    mixins: [playlistMixin],
+    created() {
+      this._getTopList()
+    },
+    data() {
+      return {
+        topList: []
+      }
+    },
+    methods: {
+      handlePlaylist(playlist) {
+        const bottom = playlist.length > 0 ? '60px' : ''
+
+        this.$refs.rank.style.bottom = bottom
+        this.$refs.toplist.refresh()
+      },
+      selectItem(item) {
+        this.$router.push({
+          path: `/rank/${item.id}`
+        })
+        this.setTopList(item)
+      },
+      _getTopList() {
+        getTopList().then((res) => {
+          if (res.code === ERR_OK) {
+            this.topList = res.data.topList
+          }
+        })
+      },
+      ...mapMutations({
+        setTopList: 'SET_TOP_LIST'
+      })
+    },
+    watch: {
+      topList() {
+        setTimeout(() => {
+          this.$Lazyload.lazyLoadHandler()
+        }, 20)
+      }
+    },
+    components: {
+      Scroll,
+      Loading
     }
+  }
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+  @import "~common/stylus/variable"
+  @import "~common/stylus/mixin"
+
+  .rank
+    position: fixed
+    width: 100%
+    top: 88px
+    bottom: 0
+    .toplist
+      height: 100%
+      overflow: hidden
+      .item
+        display: flex
+        margin: 0 20px
+        padding-top: 20px
+        height: 100px
+        &:last-child
+          padding-bottom: 20px
+        .icon
+          flex: 0 0 100px
+          width: 100px
+          height: 100px
+        .songlist
+          flex: 1
+          display: flex
+          flex-direction: column
+          justify-content: center
+          padding: 0 20px
+          height: 100px
+          overflow: hidden
+          background: $color-highlight-background
+          color: $color-text-d
+          font-size: $font-size-small
+          .song
+            no-wrap()
+            line-height: 26px
+      .loading-container
+        position: absolute
+        width: 100%
+        top: 50%
+        transform: translateY(-50%)
+</style>

@@ -1,94 +1,120 @@
-<style scoped>
-    .scrollView{overflow:hidden;}
-</style>
-
 <template>
-    <div ref="wrapper">
-        <div class="scrollView" ref="scrollView" :style="myCss">
-            <slot></slot>
-        </div>
-    </div>
+  <div ref="wrapper">
+    <slot></slot>
+  </div>
 </template>
 
-<script>
-    import BScroll from 'better-scroll'
-    import {mapGetters} from 'vuex'
-    export default {
-        props: {
-            probeType: {
-                type: Number,
-                default: 1
-            },
-            click: {
-                type: Boolean,
-                default: true
-            },
-            data: {
-                type: Array,
-                default: null
-            },
-            listenScroll: {
-                type: Boolean,
-                default: false
-            },
-            myCss: {
-                type: String,
-                default: ''
-            }
-        },
-        mounted() {
-            setTimeout(()=>{
-                this._initScroll();
-            },30)
-        },
-        computed: {
-            ...mapGetters([
-                'miniPlayerShow'
-            ])
-        },
-        methods: {
-            _initScroll() {
-                if(!this.$refs.wrapper) return;
-                this.scroll = new BScroll(this.$refs.wrapper,{
-                    probeType: this.probeType,
-                    click: this.click
-                })
-                if(this.listenScroll){
-                    this.scroll.on('scroll',(pos) => {
-                        this.$emit('scroll',pos)
-                    })
-                }
-            },
-            enable() {
-                this.scroll && this.scroll.enable();
-            },
-            disable() {
-                this.scroll && this.scroll.disable();
-            },
-            refresh() {
-                setTimeout(() => {
-                    if(this.scroll){
-                        this.scroll.refresh();
-                    }
-                },30);
-            },
-            scrollTo() {
-                this.scroll && this.scroll.scrollTo.apply(this.scroll,arguments)
-            },
-            scrollToElement() {
-                this.scroll && this.scroll.scrollToElement.apply(this.scroll,arguments)
-            }
-        },
-        watch: {
-            data() {
-               this.refresh();
-            },
-            miniPlayerShow() {
-                setTimeout(() => {
-                    console.log('迷你播放器状态改版，刷新scroll组件')
-                    this.scroll.refresh();
-                },30)
-            }
+<script type="text/ecmascript-6">
+  import BScroll from 'better-scroll'
+  import {mapGetters} from 'vuex'
+
+  export default {
+    props: {
+      probeType: {
+        type: Number,
+        default: 1
+      },
+      click: {
+        type: Boolean,
+        default: true
+      },
+      listenScroll: {
+        type: Boolean,
+        default: false
+      },
+      data: {
+        type: Array,
+        default: null
+      },
+      pullup: {
+        type: Boolean,
+        default: false
+      },
+      beforeScroll: {
+        type: Boolean,
+        default: false
+      },
+      refreshDelay: {
+        type: Number,
+        default: 20
+      }
+    },
+    mounted() {
+      setTimeout(() => {
+        this._initScroll()
+      }, 20)
+    },
+    computed: {
+      ...mapGetters([
+        'miniPlayerShow'
+      ])
+    },
+    methods: {
+      _initScroll() {
+        if (!this.$refs.wrapper) {
+          return
         }
+        this.scroll = new BScroll(this.$refs.wrapper, {
+          probeType: this.probeType,
+          click: this.click
+        })
+
+        if (this.listenScroll) {
+          let me = this
+          this.scroll.on('scroll', (pos) => {
+            me.$emit('scroll', pos)
+          })
+        }
+
+        if (this.pullup) {
+          this.scroll.on('scrollEnd', () => {
+            if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
+              this.$emit('scrollToEnd')
+            }
+          })
+        }
+
+        if (this.beforeScroll) {
+          this.scroll.on('beforeScrollStart', () => {
+            this.$emit('beforeScroll')
+          })
+        }
+      },
+      disable() {
+        this.scroll && this.scroll.disable()
+      },
+      enable() {
+        this.scroll && this.scroll.enable()
+      },
+      refresh() {
+        this.scroll && this.scroll.refresh()
+      },
+      scrollTo() {
+        this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
+      },
+      scrollToElement() {
+        this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
+      }
+    },
+    watch: {
+      data() {
+        setTimeout(() => {
+          this.refresh()
+        }, this.refreshDelay)
+      },
+      miniPlayerShow() {
+        setTimeout(() => {
+          document.title = '迷你播放器状态改变了'
+          this.refresh()
+          setTimeout(() => {
+            document.title = '还原'
+          }, 1000)
+        })
+      }
     }
+  }
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+
+</style>
