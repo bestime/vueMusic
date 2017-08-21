@@ -371,6 +371,7 @@
           return
         }
         if (this.currentLyric) {
+          console.log('执行停止')
           this.currentLyric.stop()
           this.currentTime = 0
           this.playingLyric = ''
